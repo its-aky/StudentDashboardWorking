@@ -1,0 +1,39 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkNET | Login Page</title>
+    
+
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "css/homepage_css.css" %}" rel="stylesheet">
+
+    
+    
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center login-buttons">
+            <div class="col-md-4">
+                <div class="login-button">
+                    <p class="text">Student Login</p>
+                    <a href="{% url "dashboard:MainDashboard" %}">
+                        <img src="{% static "img/icons/user.svg" %}" alt="Student Login" width="100" height="100">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="login-button">
+                    <p class="text">Admin Login</p>
+                    <a href='{% url "admin:index" %}'>
+                        <img src="{% static "img/icons/tool.svg" %}" alt="Admin Login" width="100" height="100">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

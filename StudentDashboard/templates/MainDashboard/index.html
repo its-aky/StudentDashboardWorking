@@ -1,0 +1,78 @@
+{% extends "base.html" %} 
+{% block content %}
+
+<div class="container mt-3">
+    {% include "partials/messages.html" %}
+    <div class="row">
+        <div class="col-md-10">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="col-md-2">
+            <a href="{% url "dashboard:add_details" %}" class="btn btn-primary">Add Details</a>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container mt-2">
+
+    {% if company_details.count %}
+    
+    <table class="table table-stripped table-hover">
+        <thead>
+            <tr>
+                <th>Name of Company</th>
+                <th>Batch</th>
+                <th>Preferred Branch</th>
+                <th>Type</th>
+                <th>Mode</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for company in company_details %}
+            <tr>
+                <td>{{company.name_of_company}}</td>
+                <td>{{company.year_of_passing}}</td>
+                <td>{{company.preferred_branch}}</td>
+                <td>{{company.type}}</td>
+                <td>{{company.mode}}</td>
+                <td>{{company.category}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+
+    <div class="pagination-container">
+        <div class="">
+          Showing page {{page_obj.number}} of {{ page_obj.paginator.num_pages }}
+        </div>
+        <ul class="pagination align-right float-right mr-auto">
+          {% if page_obj.has_previous %}
+          <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+          <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+          {% endif %}
+    
+          {% if page_obj.has_next %}
+          <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+          <li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+          {% endif %}
+    
+    
+          </ul>
+
+    {% endif %}
+    
+
+</div>
+
+
+{% endblock content %}

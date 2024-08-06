@@ -1,0 +1,16 @@
+{
+    "Computer Science Engineering": "CSE",
+    "Electrical Engineering": "EE",
+    "Mechanical Engineering": "ME",
+    "Civil Engineering": "CE",
+    "Chemical Engineering": "ChE",
+    "Electronics and Communication Engineering": "ECE",
+    "Aerospace Engineering": "AE",
+    "Biomedical Engineering": "BME",
+    "Environmental Engineering": "EnvE",
+    "Industrial Engineering": "IE",
+    "Materials Science and Engineering": "MSE",
+    "Petroleum Engineering": "PE",
+    "Marine Engineering": "MarE",
+    "Mining Engineering": "MinE"
+}

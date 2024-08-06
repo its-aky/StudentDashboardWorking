@@ -1,0 +1,29 @@
+h1{
+    font-weight: bold;
+}
+
+#header {
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 50px;
+    padding-bottom: 0;
+}
+
+#branding {
+    padding-top: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 0;
+}
+
+.login {
+    background-image: url('../img/eyes.gif') !important;
+    background-repeat:no-repeat !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+}
+
+
+
+
+
