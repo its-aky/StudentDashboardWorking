@@ -1,8 +1,11 @@
 {% extends "base.html" %} 
+{% load static %}
 {% block content %}
 
 <div class="container mt-3">
     {% include "partials/messages.html" %}
+    
+
     <div class="row">
         <div class="col-md-10">
             <nav aria-label="breadcrumb">
@@ -20,41 +23,74 @@
 
 </div>
 
+<div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <input type="text" class="form-control" id="searchField" placeholder="Search">
+      </div>
+    </div>
+</div>
+
 <div class="container mt-2">
 
     {% if company_details.count %}
     
-    <table class="table table-stripped table-hover">
-        <thead>
-            <tr>
-                <th>Name of Company</th>
-                <th>Batch</th>
-                <th>Preferred Branch</th>
-                <th>Type</th>
-                <th>Mode</th>
-                <th>Category</th>
-            </tr>
-        </thead>
+    <div class="app_table">
+        <table class="table table-stripped table-hover">
+            <thead>
+                <tr>
+                    <th>Name of Company</th>
+                    <th>Batch</th>
+                    <th>Preferred Branch</th>
+                    <th>Type</th>
+                    <th>Mode</th>
+                    <th>Category</th>
+                </tr> 
+            </thead>
+    
+            <tbody>
+                {% for company in page_obj %}
+                <tr>
+                    <td>{{company.name_of_company}}</td>
+                    <td>{{company.year_of_passing}}</td>
+                    <td>{{company.preferred_branch}}</td>
+                    <td>{{company.type}}</td>
+                    <td>{{company.mode}}</td>
+                    <td>{{company.category}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+    </div>
+    <p class="no_results" style="display: none;">No Results Found </p>
+    <div class="table_output">
+        <table class="table table-stripped table-hover">
+            <thead>
+                <tr>
+                    <th>Name of Company</th>
+                    <th>Batch</th>
+                    <th>Preferred Branch</th>
+                    <th>Type</th>
+                    <th>Mode</th>
+                    <th>Category</th>
+                </tr> 
+            </thead>
+    
+            <tbody class="table_body">
+                
+            </tbody>
+            
+        </table>
+    </div>
+    
 
-        <tbody>
-            {% for company in company_details %}
-            <tr>
-                <td>{{company.name_of_company}}</td>
-                <td>{{company.year_of_passing}}</td>
-                <td>{{company.preferred_branch}}</td>
-                <td>{{company.type}}</td>
-                <td>{{company.mode}}</td>
-                <td>{{company.category}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        
-    </table>
-
-    <div class="pagination-container">
+    <div class="pagination_container">
         <div class="">
           Showing page {{page_obj.number}} of {{ page_obj.paginator.num_pages }}
         </div>
+        
         <ul class="pagination align-right float-right mr-auto">
           {% if page_obj.has_previous %}
           <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
@@ -65,14 +101,16 @@
           <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
           <li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
           {% endif %}
-    
-    
-          </ul>
+        </ul>
+    </div>
 
     {% endif %}
     
 
 </div>
+
+
+<script src="{% static 'js/ajax_search.js' %}"></script>
 
 
 {% endblock content %}

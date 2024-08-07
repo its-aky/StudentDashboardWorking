@@ -3,16 +3,40 @@ from .models import Category,UserDetails,Type,Mode,UpcomingCompanyDetails
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
+import json
+from django.db.models import Q
+from django.http import JsonResponse
+
 @login_required(login_url='/authentication/login')
-# Create your views here.
+
+def ajax_search(request):
+    
+    if request.method=="POST":
+        search_str = json.loads(request.body).get('searchText')
+        
+        company_details = UpcomingCompanyDetails.objects.filter(  
+            Q(name_of_company__icontains=search_str) |
+            Q(year_of_passing__icontains=search_str) |
+            Q(preferred_branch__icontains=search_str) |
+            Q(type__icontains=search_str) |
+            Q(mode__icontains=search_str) |
+            Q(category__icontains=search_str)
+        )
+            
+
+        data = company_details.values()
+        return JsonResponse(list(data), safe=False)
+
+
+
 def index(request):
     company_details=UpcomingCompanyDetails.objects.all()
-    expenses = UpcomingCompanyDetails.objects.filter(owner=request.user)
-    paginator = Paginator(expenses, 5)
+    paginator = Paginator(company_details, 5)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
     context={
         "company_details":company_details,
+        'page_obj':page_obj,
     }
     return render(request,'MainDashboard/index.html',context)
 
