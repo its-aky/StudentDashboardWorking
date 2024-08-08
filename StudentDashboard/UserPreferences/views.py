@@ -12,6 +12,8 @@ from django.contrib import messages
     
 def index(request):
     branchs=[]
+    semester=["First Semester","Second Semester","Third Semester","Fourth Semester","Fifth Semester","Sixth Semester","Seventh Semester"]
+    
     file_path=os.path.join(settings.BASE_DIR , 'branch.json')
         
     with open(file_path,'r') as json_file:
@@ -25,19 +27,22 @@ def index(request):
         user_preference=UserPreference.objects.get(user=request.user)
     
     if request.method=="GET":
-        return render(request,'Preferences/index.html',{"branchs":branchs,'user_preference':user_preference})
+        return render(request,'Preferences/index.html',{"branchs":branchs,"semesters":semester,'user_preference':user_preference})
 
     
     else:
         chosen_branch=request.POST['chosen_branch']
+        chosen_semester=request.POST['chosen_semester']
+        
         if user_preference==None:
-            UserPreference.objects.create(user=request.user,branch=chosen_branch)
+            UserPreference.objects.create(user=request.user,branch=chosen_branch,semester=chosen_semester)
             
         else:
             user_preference.branch=chosen_branch
+            user_preference.semester=chosen_semester
             user_preference.save()
 
         messages.success(request,"Changes Saved")
-        return render(request,'Preferences/index.html',{"branchs":branchs,'user_preference':user_preference})
+        return render(request,'Preferences/index.html',{"branchs":branchs,"semesters":semester,'user_preference':user_preference})
         
     

@@ -1,11 +1,12 @@
 from django.shortcuts import render,redirect
-from .models import Category,UserDetails,Type,Mode,UpcomingCompanyDetails
+from .models import UpcomingCompanyDetails,Curriculum
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 import json
 from django.db.models import Q
 from django.http import JsonResponse
+from UserPreferences.models import UserPreference
 
 @login_required(login_url='/authentication/login')
 
@@ -42,45 +43,35 @@ def index(request):
 
 
 def add_details(request):
-    categories=Category.objects.all()
-    types=Type.objects.all()
-    modes=Mode.objects.all()
-
     
-    context={
-        "categories":categories,
-        "types":types,
-        "modes":modes,
-        "values":request.POST,
-    }
+    user_preference=None
+    if UserPreference.objects.filter(user=request.user).exists()==True:
+        user_preference=UserPreference.objects.get(user=request.user)
+    
+    subjects=[]
+    if(user_preference):
+        mixedbranch = user_preference.branch
+
+        branch = mixedbranch.split('-')[1].strip()
+        
+        
+        semester = user_preference.semester
+        
+        get_subjects=Curriculum.objects.filter(branch=branch,semester=semester).first()
+        
+        if get_subjects:
+            subjects=[get_subjects.subject_one,
+            get_subjects.subject_two,
+            get_subjects.subject_three,
+            get_subjects.subject_four,
+            get_subjects.subject_five,
+            get_subjects.subject_six]
+            
+       
     
     if request.method=="GET":
-        return render(request,'MainDashboard/add_details.html',context)
+        return render(request,'MainDashboard/add_details.html',{"subjects":subjects})
     
-    if request.method=="POST":
-        
-        name=request.POST['name']
-        year=request.POST['year']
-        branch=request.POST['branch']
-        type=request.POST['type']
-        mode=request.POST['mode']
-        category=request.POST['category']
-        
-        if not name:
-            messages.error(request,"Name is required")
-            return render(request,'MainDashboard/add_details.html',context)
-        
-        if not year:
-            messages.error(request,"Year is required")
-            return render(request,'MainDashboard/add_details.html',context)
-        
-        if not branch:
-            messages.error(request,"Branch is required")
-            return render(request,'MainDashboard/add_details.html',context)
-        
-        
-        UserDetails.objects.create(student=request.user,name=name,year=year,branch=branch,type=type,mode=mode,category=category)
-        messages.success(request,"USER DETAILS ADDED SUCCESSFULLY")
-        return redirect('dashboard:MainDashboard')
+    
             
     

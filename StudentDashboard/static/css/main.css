@@ -22,3 +22,16 @@
   transform: scale(1.5);
 }
 
+.card-body {
+  padding: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between; 
+}
+
+.btn-primary:hover {
+  background-color: #28a745; 
+}
+

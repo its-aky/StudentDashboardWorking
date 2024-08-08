@@ -1,10 +1,6 @@
 from django.contrib import admin
-from .models import Category,UserDetails,Type,Mode,UpcomingCompanyDetails
+from .models import UpcomingCompanyDetails,Curriculum
 # Register your models here.
 
-
-admin.site.register(UserDetails)
-admin.site.register(Category)
-admin.site.register(Type)
-admin.site.register(Mode)
+admin.site.register(Curriculum)
 admin.site.register(UpcomingCompanyDetails)

@@ -11,7 +11,6 @@
     <h5>Branch:</h5>
     {% csrf_token %}
     <div class="input-group">
-      
         <select name="chosen_branch" class="custom-select" id="inputGroupSelect04">
           {% if user_preference.branch %}
           <option name="chosen_branch" value="{{user_preference.branch}}" selected>{{user_preference.branch}}</option>
@@ -26,6 +25,26 @@
           <input class="btn btn-outline-secondary" type="submit" value="Save"/>
         </div>
     </div>
+
+    <br>
+    <h5>Semester:</h5>
+
+    <div class="input-group mt-3">
+      
+      <select name="chosen_semester" class="custom-select" id="inputGroupSelect04">
+        {% if user_preference.semester %}
+        <option name="chosen_semester" value="{{user_preference.semester}}" selected>{{user_preference.semester}}</option>
+        {% endif %}
+        
+        {% for semester in semesters %}
+        <option name="chosen_semester" value="{{semester}}">{{semester}}</option>
+        {% endfor %}
+        
+      </select>
+      <div class="input-group-append">
+        <input class="btn btn-outline-secondary" type="submit" value="Save"/>
+      </div>
+  </div>
 
   </form>
 

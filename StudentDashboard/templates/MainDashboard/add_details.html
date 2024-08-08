@@ -1,6 +1,9 @@
 {% extends "base.html" %} 
 {% block content %}
 
+{% load static %}
+
+
 <div class="container mt-3">
     
     <nav aria-label="breadcrumb">
@@ -13,65 +16,43 @@
     
     <div class="card">
         <div class="card-body">
-
-            <form action="{% url "dashboard:add_details" %}" method="post">
-                
-                {% csrf_token %}
-
-                {% include "partials/messages.html" %}
-
-                <div class="form-group">
-                    <label for="">Name of the company</label>
-                    <input type="text" class="form-control form-control-sm" name="name" value="{{values.name}}"/>
-                </div>
-
-                <div class="form-group">
-                    <label for="">Year of Passing</label>
-                    <input type="number" class="form-control form-control-sm" name="year" value="{{values.year}}"/>
-                </div>
-                
-                <div class="form-group">
-                    <label for="">Preferred Branch</label>
-                    <input type="text" class="form-control form-control-sm" name="branch" value="{{values.branch}}"/>
-                </div>
-
-                <div class="form-group">
-                    <label for="">Type</label>
-
-                    <select name="type" class="form-control">
-                        {% for type  in types %}
-                        <option name="type" value="{{type.name}}">{{type.name}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="">Mode</label>
-
-                    <select name="mode" class="form-control">
-                        {% for mode  in modes %}
-                        <option name="mode" value="{{mode.name}}">{{mode.name}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="">Category</label>
-                    <select name="category" class="form-control">
-                        {% for category  in categories %}
-                        <option name="category" value="{{category.name}}">{{category.name}}</option>
-                        {% endfor %}
-                        
-                    </select>
-        
-                </div>
-
-                <input type="submit" class="btn btn-primary btn-primary-sm mt-3" />
-            </form>
-
+            <div class="button-container">
+                <button class="btn btn-primary">First Semester</button>
+                <button class="btn btn-primary">Second Semester</button>
+                <button class="btn btn-primary">Third Semester</button>
+                <button class="btn btn-primary">Fourth Semester</button>
+                <button class="btn btn-primary">Fifth Semester</button>
+                <button class="btn btn-primary">Six Semester</button>
+                <button class="btn btn-primary">Seventh Semester</button>
+            </div>
         </div>
     </div>
+
+    <div>
+        <table class="table table-stripped table-hover">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Quiz 1</th>
+                    <th>Quiz 2</th>
+                    <th>Mid Semester</th>
+                    <th>End Semester</th>
+                </tr> 
+            </thead>
+    
+            <tbody>
+                {% for subject in subjects %}
+                <tr>
+                    <td>{{subject}}</td>
+                </tr> 
+                {% endfor %}
+                
+            </tbody>
+            
+        </table>
+    </div>
+
+
     
    
 
