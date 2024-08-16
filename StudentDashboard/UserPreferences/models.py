@@ -8,5 +8,8 @@ class UserPreference(models.Model):
     branch=models.CharField(max_length=255,blank=True,null=True)
     semester=models.CharField(max_length=255,blank=True,null=True)
     
+    class Meta:
+        unique_together = ('user', 'branch', 'semester')
+        
     def __str__(self):
         return f'{self.user.username}\'s Preferences'    

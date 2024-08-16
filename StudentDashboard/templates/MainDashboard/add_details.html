@@ -41,11 +41,19 @@
             </thead>
     
             <tbody>
-                {% for subject in subjects %}
-                <tr>
-                    <td>{{subject}}</td>
-                </tr> 
-                {% endfor %}
+                <form action="{% url "add_details" %}" method="POST">
+                    {% csrf_token %}
+                    {% for subject in subjects %}
+                    <tr>
+                        <td><input type="number" name="" class="form-control" placeholder="Quiz 1"></td>
+                        <td><input type="number" name="" class="form-control" placeholder="Quiz 2"></td>
+                        <td><input type="number" name="" class="form-control" placeholder="Mid Semester"></td>
+                        <td><input type="number" name="" class="form-control" placeholder="End Semester"></td>
+                        <td><input class="btn btn-outline-secondary" type="submit" value="Save"/></td>
+                    </tr> 
+                
+                    {% endfor %}
+                </form>
                 
             </tbody>
             
